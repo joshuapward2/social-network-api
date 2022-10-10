@@ -23,7 +23,7 @@ const userController = {
     // 
   // get one user by id
 getUsersById({ params }, res) {
-    Pizza.findOne({ _id: params.id })
+    User.findOne({ _id: params.id })
       .populate({
         path: 'Thoughts',
         select: '-__v'

@@ -7,7 +7,7 @@ const formatter = require('formatter');
 
 const ReactionSchema = new Schema(
   {
-    // set custom id to avoid confusion with parent comment's _id field
+    // set custom id to avoid confusion with parent Thoughts's _id field
     reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId()
