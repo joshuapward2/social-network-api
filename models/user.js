@@ -19,7 +19,7 @@ const userSchema = new Schema({
       "Please fill a valid email address",
         ]
     },
-    comments: [
+    thoughts: [
         {
           type: Schema.Types.ObjectId,
           ref:'Thought'
@@ -47,4 +47,11 @@ userSchema.virtual('friendsCount').get(function() {
   
     },
     id: false
-  }
+  };
+// create the user model defined by userschema
+
+  const User = model('User', userSchema);
+
+// export the user model
+
+module.exports = User;
