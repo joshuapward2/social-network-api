@@ -30,7 +30,7 @@ getThoughtsById({ params }, res) {
       .select('-__v')
       .then(dbThoughtData => {
         if (!dbThoughtData) {
-          res.status(404).json({ message: 'No User found with this id!' });
+          res.status(404).json({ message: 'No User/thoughts found with this id!' });
           return;
         }
         res.json(dbThoughtData);
@@ -53,14 +53,14 @@ getThoughtsById({ params }, res) {
           })
           .then(dbThoughtsData => {
             if (!dbThoughtsData) {
-              res.status(404).json({ message: 'No User found with this id!' });
+              res.status(404).json({ message: 'No User/thoughts found with this id!' });
               return;
             }
             res.json(dbThoughtsData);
           })
           .catch(err => res.json(err));
       },
-      addReation({ params, body }, res) {
+      addReaction({ params, body }, res) {
         Thoughts.findOneAndUpdate(
           { _id: params.thoughtsId },
           { $push: { reactions: body } },
@@ -68,7 +68,7 @@ getThoughtsById({ params }, res) {
         )
           .then(dbThoughtsData => {
             if (!dbThoughtsData) {
-              res.status(404).json({ message: 'No User thoughts found with this id!' });
+              res.status(404).json({ message: 'No User/thoughts thoughts found with this id!' });
               return;
             }
             res.json(dbThoughtsData);
@@ -81,7 +81,7 @@ updateThoughts({ params, body }, res) {
     Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbThoughtsData => {
         if (!dbThoughtsData) {
-          res.status(404).json({ message: 'No User found with this id!' });
+          res.status(404).json({ message: 'No User/thoughts found with this id!' });
           return;
         }
         res.json(dbThoughtsData);
