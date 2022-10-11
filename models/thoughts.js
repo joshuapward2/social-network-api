@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat.js');
 
-const formatter = require('formatter');
+
 
 
 
@@ -40,7 +40,7 @@ const ThoughtSchema = new Schema(
        thoughtText: {
         type: String,
         required: true,
-        maxLength: 280
+        maxlength: 280
        },
        createdAt: {
         type: Date,
