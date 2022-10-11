@@ -8,7 +8,7 @@ const thoughtRoutes = require('./thoughts-routes')
 // adding prefix's to routes
 
 router.use('/users', userRoutes);
-router.use('/thoughts', userRoutes);
+router.use('/thoughts', thoughtRoutes);
 
 
 
