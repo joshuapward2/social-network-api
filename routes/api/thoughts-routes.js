@@ -17,17 +17,16 @@ const {
 router
 .route('/')
 .get(getAllThoughts)
-
+router.route('/:userId').post(addThought)
 //  /api/thoughts/:id
 
 router.route('/:id').get(getThoughtsById)
-router.route('/:id').post(addThought)
 router.route('/:id').put(updateThoughts)
-router.route('/:id').delete(removeThoughts);
+
 
 // Routes by id at /api/thoughts/:id
 router
-.route('/:userid/:thoughtsid')
+.route('/delete/:userid/:thoughtsid')
 .put(updateThoughts)
 .delete(removeThoughts);
 

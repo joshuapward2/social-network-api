@@ -62,7 +62,7 @@ getThoughtsById({ params }, res) {
       },
       addReaction({ params, body }, res) {
         Thoughts.findOneAndUpdate(
-          { _id: params.thoughtsId },
+          { _id: params.reactionsId },
           { $push: { reactions: body } },
           { new: true, runValidators: true }
         )
@@ -91,16 +91,18 @@ updateThoughts({ params, body }, res) {
 
       // remove thoughts
   removeThoughts({ params }, res) {
-    Thoughts.findOneAndDelete({ _id: params.thoughtsId })
+    Thoughts.findOneAndDelete({ _id: params.thoughtsid })
       .then(deletedThought => {
         if (!deletedThought) {
-          return res.status(404).json({ message: 'No Thoughts with this id!' });
+          throw { message: 'No Thoughts with this id!', status: 404};
         }
-        return User.findOneAndUpdate(
-          { _id: params.userId },
-          { $pull: { thoughts: params.thoughtsId } },
-          { new: true }
-        );
+    return deletedThought;
+
+        // return User.findOneAndUpdate(
+        //   { _id: params.userId },
+        //   { $pull: { thoughts: params.thoughtsid } },
+        //   { new: true }
+        // );
       })
       .then(dbThoughtsData => {
         if (!dbThoughtsData) {
@@ -109,12 +111,22 @@ updateThoughts({ params, body }, res) {
         }
         res.json(dbThoughtsData);
       })
-      .catch(err => res.json(err));
+      .catch(err => {
+        if(err.status) {
+          res.status(err.status).json(err)
+
+        }
+        else{
+          res.status(500).json(err)
+        }
+       
+      });
+
   }, // remove reactions
   removeReation({ params }, res) {
     Thoughts.findOneAndUpdate(
-      { _id: params.thoughtsId },
-      { $pull: { reactions: { reactionId: params.replyId } } },
+      { _id: params.reactionsId },
+      { $pull: { reactions: { reactionId: params.reactionsId } } },
       { new: true }
     )
       .then(dbThoughtsData => res.json(dbThoughtsData))
