@@ -7,10 +7,6 @@ const thoughtsController = {
 // get all users
 getAllThoughts(req, res) {
     Thoughts.find({})
-      .populate({
-        path: 'thoughts',
-        select: '-__v'
-      })
       .select('-__v')
       .sort({ _id: -1 })
       .then(dbThoughtData => res.json(dbThoughtData))
@@ -23,10 +19,6 @@ getAllThoughts(req, res) {
   // get one user by id
 getThoughtsById({ params }, res) {
     Thoughts.findOne({ _id: params.id })
-      .populate({
-        path: 'thoughts',
-        select: '-__v'
-      })
       .select('-__v')
       .then(dbThoughtData => {
         if (!dbThoughtData) {
@@ -78,7 +70,7 @@ getThoughtsById({ params }, res) {
 
       // update thoughts by id(PUT)
 updateThoughts({ params, body }, res) {
-    Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+    Thoughts.findOneAndUpdate({ _id: params.thoughtsId }, body, { new: true, runValidators: true })
       .then(dbThoughtsData => {
         if (!dbThoughtsData) {
           res.status(404).json({ message: 'No User/thoughts found with this id!' });
@@ -91,12 +83,12 @@ updateThoughts({ params, body }, res) {
 
       // remove thoughts
   removeThoughts({ params }, res) {
-    Thoughts.findOneAndDelete({ _id: params.thoughtsid })
+    Thoughts.findOneAndDelete({ _id: params.thoughtsId })
       .then(deletedThought => {
         if (!deletedThought) {
           throw { message: 'No Thoughts with this id!', status: 404};
         }
-    return deletedThought;
+     return deletedThought;
 
         // return User.findOneAndUpdate(
         //   { _id: params.userId },

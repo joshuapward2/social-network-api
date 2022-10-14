@@ -50,6 +50,7 @@ const ThoughtSchema = new Schema(
       username: {
         type: String,
         required: true,
+       
         
       },
       // use ReactionSchema will validate data for a reaction

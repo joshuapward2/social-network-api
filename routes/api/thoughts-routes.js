@@ -13,20 +13,22 @@ const {
   
 
 
-// GET all /api/thoughts
+// GET all and POST by ID
 router
-.route('/')
-.get(getAllThoughts)
-router.route('/:userId').post(addThought)
-//  /api/thoughts/:id
-
+.route('/').get(getAllThoughts)
 router.route('/:id').get(getThoughtsById)
+
+
+//PUT and Post
+
+
 router.route('/:id').put(updateThoughts)
+router.route('/:userId').post(addThought)
 
 
-// Routes by id at /api/thoughts/:id
+// Routes deleting and updating
 router
-.route('/delete/:userid/:thoughtsid')
+.route('/delete/:userid/:thoughtsId')
 .put(updateThoughts)
 .delete(removeThoughts);
 
@@ -36,4 +38,3 @@ router.route('/:userId/:thoughtsId/:reactionsId').delete(removeReation);
 router.route('/:userId/:thoughtsId/:reactionsId').post(addReaction);
 
 module.exports = router;
-
